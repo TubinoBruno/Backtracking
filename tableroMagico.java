@@ -12,10 +12,11 @@ public class tableroMagico {
 	int [][]tablero=new int[n][n];
 	public tableroMagico(){
 		for(int i=0;i<n;i++){
+			sumfila[i]=0;
+			sumcol[i]=0;
 			for(int j=0;j<n;j++){
 				tablero[i][j]=0;
-				sumfila[i]=0;
-				sumcol[i]=0;
+				
 
 			}
 		}
@@ -24,18 +25,10 @@ public class tableroMagico {
 		}
 		int casillero=0;
 		getSolucion(casillero);
-		if(getSolucion(casillero)){
-			System.out.println("seee");
-		}
-		else{
-			System.out.println("neeee");
 
-		}
 
 	}
-	public boolean getSolucion(int casillero){
-		//System.out.println(casillero+"valor");
-		//imprimir();
+	public boolean getSolucion(int casillero){	
 		if(casillero==n*n){
 			if(isSolucion()){
 				imprimir();
@@ -43,24 +36,23 @@ public class tableroMagico {
 			}
 		}
 		else{
-			for(int c=casillero;c<(n*n);c++){
-				for(int valor=1;valor<=k;valor++){
+			for(int valor=0;valor<=k;valor++){
 
-					if(!usado[valor]){
-						tablero[c/n][c%n]=valor;
-						usado[valor]=true;
-						boolean result = getSolucion(c+1);
-						if (result){
-							return true;
-						}
-						usado[valor]=false;
-						tablero[c/n][c%n]=0;
-
+				if(!usado[valor]){
+					tablero[casillero/n][casillero%n]=valor;
+					usado[valor]=true;
+					boolean result = getSolucion(casillero+1);
+					if (result){
+						return true;
 					}
-
-
+					usado[valor]=false;
+					tablero[casillero/n][casillero%n]=0;
 
 				}
+
+
+
+
 
 			}
 		}
